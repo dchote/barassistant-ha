@@ -5,7 +5,7 @@
       max-width="900"
     >
       <v-row>
-        <v-col cols="12">{{ cocktails }}</v-col>
+        <v-col cols="12"><pre>{{ cocktails }}</pre></v-col>
       </v-row>
     </v-responsive>
   </v-container>
@@ -30,9 +30,15 @@
     
     methods: {
       loadCocktails() {
-        
-        this.$api.get('/cocktails').then((result) => {
-          console.log('RESULT', result)
+        this.$api.get('/cocktails', { 
+          params: {
+            per_page: 50, 
+            page: 1, 
+            sort: '-created_at', 
+            include: 'ratings,ingredients.ingredient,tags,images'
+          }
+        }).then((result) => {
+          this.cocktails = result.data.data
         })
         
       }
