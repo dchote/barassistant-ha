@@ -7,6 +7,7 @@ FROM node:current-alpine3.20 AS build
 ARG API_URL
 ARG API_TOKEN
 ARG BAR_ID=1
+ARG COLLECTION_ID=1
 
 WORKDIR /app
 COPY package*.json .
@@ -15,7 +16,8 @@ COPY . .
 RUN echo -e "\
 VITE_API_URL=$API_URL \n\
 VITE_API_TOKEN=$API_TOKEN \n\
-VITE_BAR_ID=$BAR_ID \
+VITE_BAR_ID=$BAR_ID \n\
+VITE_COLLECTION_ID=$COLLECTION_ID \
 " > .env
 
 RUN yarn install

@@ -4,7 +4,7 @@
       class="text-caption text-disabled"
       style="position: absolute; right: 16px;"
     >
-      &copy; {{ (new Date()).getFullYear() }} <span class="d-none d-sm-inline-block">Daniel Chote</span>
+      &copy; {{ (new Date()).getFullYear() }} <span>Daniel Chote</span>
     </div>
   </v-footer>
 </template>

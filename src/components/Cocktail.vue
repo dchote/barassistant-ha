@@ -22,8 +22,10 @@
         </template>
       </v-card>
     </v-dialog>
+    
+    
     <v-card
-      width="360"
+      :width="xs ? '450px' : '360px'"
     >
       <v-img
         v-if="cocktail.images && cocktail.images[0]"
@@ -55,7 +57,6 @@
       <v-row 
         v-if="cocktail.ingredients.length > 0" 
         class="mx-3 mt-3 mb-1"
-        style="min-height: 60px;"
       >
         <v-chip
           v-for="ingredient in cocktail.ingredients" :key="ingredient.sort"
@@ -95,6 +96,11 @@
   </div>
 </template>
 
+<script setup>
+  import { useDisplay } from 'vuetify'
+  const { xs } = useDisplay()
+</script>
+  
 <script>
   export default {
     props: ['cocktail'],
