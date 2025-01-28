@@ -2,10 +2,9 @@
   <v-container class="fill-height">
     <v-responsive
       class="align-centerfill-height mx-auto"
-      max-width="900"
     >
-      <v-row>
-        <v-col cols="12"><pre>{{ cocktails }}</pre></v-col>
+      <v-row class="my-5">
+        <cocktail v-for="item in cocktails" :key="item.id" :cocktail="item" />
       </v-row>
     </v-responsive>
   </v-container>
