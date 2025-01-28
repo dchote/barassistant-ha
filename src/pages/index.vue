@@ -1,5 +1,5 @@
 <template>
-  <HelloWorld />
+  <Cocktails />
 </template>
 
 <script setup>
