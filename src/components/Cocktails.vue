@@ -94,16 +94,19 @@
     
     watch: {
       showCollection() {
+        this.page = 1
         this.loadCocktails()
       },
       
       selectLiquor() {
         if (this.mainIngredient) {
+          this.page = 1
           this.loadCocktails()
         }
       },
       
       mainIngredient() {
+        this.page = 1
         this.loadCocktails()
       },
       

@@ -4,25 +4,24 @@
   >
     <v-dialog
       v-model="showFullRecipe"
-      width="90%"
+      width="98%"
     >
       <v-card
         prepend-icon="mdi-glass-cocktail"
         :title="cocktail.name"
       >
         <template v-slot:text>
-          <pre>{{cocktail}}</pre>
+          <cocktail-recipe :cocktail="cocktail" />
         </template>
         <template v-slot:actions>
           <v-btn
             class="ms-auto"
-            text="Close Recipe"
+            text="Done"
             @click="showFullRecipe = false"
           ></v-btn>
         </template>
       </v-card>
     </v-dialog>
-    
     
     <v-card
       :width="xs ? '450px' : '360px'"
@@ -109,14 +108,6 @@
       return {
         showFullRecipe: false
       }
-    },
-    
-    computed: {
-      
-    },
-    
-    methods: {
-      
     }
   }
 </script>
