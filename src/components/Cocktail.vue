@@ -14,7 +14,7 @@
     </v-img>
     <v-card-title v-else>{{ cocktail.name }}</v-card-title>
     
-    <v-card-text v-if="cocktail.description">{{ cocktail.description }}</v-card-text>
+    <v-card-text v-if="cocktail.description" v-html="cocktail.description"></v-card-text>
     <v-card-text v-else class="text-disabled">No Description.</v-card-text>
     
     <v-card-actions class="align-bottom">
