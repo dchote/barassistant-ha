@@ -39,11 +39,12 @@
             style="width: 100%"
           >
             <v-chip
-              variant="elevated"
               v-for="tag in cocktail.tags" :key="tag.id"
               class="ma-1"
               size="x-small"
               color="secondary"
+              variant="elevated"
+              label
             >
               {{ tag.name }}
             </v-chip>
@@ -56,6 +57,7 @@
       <v-row 
         v-if="cocktail.ingredients.length > 0" 
         class="mx-3 mt-3 mb-1"
+        justify="space-evenly"
       >
         <v-chip
           v-for="ingredient in cocktail.ingredients" :key="ingredient.sort"
@@ -63,31 +65,27 @@
           size="small"
           color="primary"
           variant="outlined"
+          label
         >
           {{ ingredient.ingredient.name }}
         </v-chip>
       </v-row>
-    
-      <v-row 
-        v-if="cocktail.rating"
-        justify="center"
-        class="mb-1"
-      >
+      
+      <v-card-actions class="align-bottom justify-space-between">
         <v-rating
+          v-if="cocktail.rating"
+          class="mx-1"
           readonly
           :length="5"
           :size="32"
           :model-value="cocktail.rating.average"
           active-color="primary"
-         />
-      </v-row>
-    
-      <v-card-actions class="align-bottom">
+        />
         <v-btn
-          class="mx-auto"
+          class="mx-1"
           size="small"
           text="View Recipe"
-          variant="outlined"
+          variant="text"
           @click="showFullRecipe = true"
         ></v-btn>
       </v-card-actions>
