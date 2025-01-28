@@ -6,7 +6,7 @@
     <v-img
       v-if="cocktail.images && cocktail.images[0]"
       class="align-end text-white"
-      height="200"
+      max-height="200"
       :src="cocktail.images[0].url"
       cover
     >
