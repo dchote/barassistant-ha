@@ -10,7 +10,7 @@
       :src="cocktail.images[0].url"
       cover
     >
-      <v-card-title>{{ cocktail.name }}</v-card-title>
+      <v-card-title style="text-shadow: 1px 1px 2px rgba(0,0,0, 0.8)">{{ cocktail.name }}</v-card-title>
     </v-img>
     <v-card-title v-else>{{ cocktail.name }}</v-card-title>
     
