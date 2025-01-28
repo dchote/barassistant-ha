@@ -24,7 +24,7 @@
     </v-dialog>
     
     <v-card
-      :width="xs ? '450px' : '360px'"
+      :width="xs ? width - 40 : '360px'"
     >
       <v-img
         v-if="cocktail.images && cocktail.images[0]"
@@ -95,7 +95,7 @@
 
 <script setup>
   import { useDisplay } from 'vuetify'
-  const { xs } = useDisplay()
+  const { xs, width } = useDisplay()
 </script>
   
 <script>
