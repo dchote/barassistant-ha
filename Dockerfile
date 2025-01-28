@@ -31,6 +31,6 @@ COPY ./docker/entrypoint.sh /usr/local/bin/entrypoint
 
 RUN chmod +x /usr/local/bin/entrypoint
 
-EXPOSE 8080
+EXPOSE 8081
 
 CMD [ "entrypoint" ]

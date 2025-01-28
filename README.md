@@ -3,3 +3,16 @@ Simple Vuetify3 based UI for Bar Assistant that can be embedded in to Home Assis
 
 ![Updated Screenshot of the UI.](doc/screenshot.png)
 
+
+
+### docker-compose.yml
+```
+  barassistant-ha:
+    image: barassistant-ha:dev
+    restart: unless-stopped
+    depends_on:
+      - bar-assistant
+      - meilisearch
+    ports:
+      - 8081:8081
+```
