@@ -1,0 +1,13 @@
+/node_modules
+.env
+.env.dist
+README.md
+/art
+public/config.js
+/dist
+/.github
+/.vscode
+/.git
+
+Dockerfile
+.dockerignore
