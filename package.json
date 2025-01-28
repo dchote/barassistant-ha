@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --base=/ha/",
     "preview": "vite preview",
     "lint": "eslint . --fix"
   },

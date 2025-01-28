@@ -16,3 +16,10 @@ Simple Vuetify3 based UI for Bar Assistant that can be embedded in to Home Assis
     ports:
       - 8081:8081
 ```
+
+### nginx.conf
+```
+    location /ha {
+        proxy_pass http://barassistant-ha:8081/;
+    }
+```
