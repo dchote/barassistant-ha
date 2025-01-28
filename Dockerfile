@@ -1,5 +1,5 @@
 #
-# docker build -t barassistant-ha:dev --build-arg API_URL=SITE_URL/bar/api --build-arg API_TOKEN=  --build-arg BAR_ID=1 .
+# docker build -t barassistant-ha:dev --build-arg API_URL=SITE_URL/bar/api --build-arg API_TOKEN=  --build-arg BAR_ID=1 --build-arg COLLECTION_ID=1 .
 # docker run  -p 8080:8080 -it barassistant-ha:dev
 #
 FROM node:current-alpine3.20 AS build

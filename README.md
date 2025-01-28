@@ -1,9 +1,18 @@
 # barassistant-ha
-Simple Vuetify3 based UI for Bar Assistant that can be embedded in to Home Assistant.
+Simple Vuetify3 based readonly UI for Bar Assistant that can be embedded in to Home Assistant.
 
 ![Updated Screenshot of the UI.](doc/screenshot.png)
 
 
+## Building
+
+Collect your Bar Assistant URL, generate a readonly API token, find the ID of your bar, and the ID of a collection that you use to track your favorite cocktails.
+
+```
+docker build -t barassistant-ha:dev --build-arg API_URL=SITE_URL/bar/api --build-arg API_TOKEN=  --build-arg BAR_ID=1 --build-arg COLLECTION_ID=1 .
+```
+
+You can combine barassistant-ha with your Bar Assistant `docker-compose.yml` and `nginx.conf` and have this bar specific readonly frontend come up within the same docker-compose stack.
 
 ### docker-compose.yml
 ```
