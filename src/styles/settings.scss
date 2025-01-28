@@ -7,4 +7,11 @@
 // https://vuetifyjs.com/features/sass-variables/`
 // @use 'vuetify/settings' with (
 //   $color-pack: false
-// );
+
+
+
+@use 'vuetify/settings' with (
+  $border-color-root: rgba(#e0e0e0, 1),
+  $border-radius-root: 12px,
+  $shadow-key-umbra-opacity: rgba(#e0e0e0, 1),
+);

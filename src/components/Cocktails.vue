@@ -33,11 +33,13 @@
           params: {
             per_page: 50, 
             page: 1, 
-            sort: '-created_at', 
+            sort: '-average_rating,-created_at', 
             include: 'ratings,ingredients.ingredient,tags,images'
           }
         }).then((result) => {
           this.cocktails = result.data.data
+        }).catch((error) => {
+          console.log('ERROR', error)
         })
         
       }
