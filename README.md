@@ -1,5 +1,5 @@
 # barassistant-ha
-Simple Vuetify3 based readonly UI for Bar Assistant that can be embedded in to Home Assistant.
+Simple Vuetify3 based readonly UI for [Bar Assistant](https://github.com/karlomikus/bar-assistant) that can be used as an embedded dashboard in [Home Assistant](https://www.home-assistant.io).
 
 ![Updated Screenshot of the UI.](doc/screenshot.png)
 
