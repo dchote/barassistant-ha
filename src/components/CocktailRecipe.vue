@@ -104,7 +104,8 @@
                   <v-icon v-else color="error">mdi-bottle-tonic-outline</v-icon>
                 </template>
                 <v-list-item-title>{{ ingredientTitle(ingredient) }}</v-list-item-title>
-                <v-list-item-subtitle v-if="!ingredient.in_bar_shelf" class="text-caption text-error">Missing ingredient.</v-list-item-subtitle>
+                <v-list-item-subtitle v-if="ingredient.optional" class="text-caption">Optional.</v-list-item-subtitle>
+                <v-list-item-subtitle v-else-if="!ingredient.in_bar_shelf" class="text-caption text-error">Missing ingredient.</v-list-item-subtitle>
               </v-list-item>
             </v-list>
           </v-card-text>
@@ -157,7 +158,7 @@
     
     data() {
       return {
-        debug: false,
+        debug: true,
         
         loading: true,
         
