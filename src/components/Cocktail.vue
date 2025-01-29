@@ -4,12 +4,12 @@
   >
     <v-dialog
       v-model="showFullRecipe"
-      width="98%"
+      fullscreen
     >
       <v-card>
         <v-card-title class="pa-3">
           <div 
-            class="d-flex flex-row"
+            class="d-flex flex-row align-center"
           >
             <v-icon class="mr-2">mdi-glass-cocktail</v-icon>
             {{ cocktail.name }}
@@ -23,6 +23,13 @@
               :model-value="cocktail.rating.average"
               active-color="primary"
             />
+            <v-btn
+              class="ml-3"
+              icon="mdi-close"
+              variant="text"
+              @click="showFullRecipe = false"
+            >
+            </v-btn>
           </div>
         </v-card-title>
         <v-card-text class="py-0">
@@ -31,7 +38,7 @@
         <v-card-actions>
           <v-btn
             class="ms-auto"
-            text="Done"
+            text="Close"
             @click="showFullRecipe = false"
           ></v-btn>
         </v-card-actions>

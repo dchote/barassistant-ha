@@ -1,7 +1,7 @@
 <template>
   <v-sheet>
     <v-row>
-      <v-col cols="6" md="4">
+      <v-col cols="6" md="4" class="d-none d-sm-block">
         <v-img
           v-if="cocktail.images && cocktail.images[0]"
           :src="cocktail.images[0].url"
@@ -12,7 +12,7 @@
         >
           <span 
             v-if="cocktail.images[0].copyright" 
-            class="ma-3 text-white text-caption"
+            class="ma-3 text-white text-caption text-no-wrap text-truncate"
           >
             Image &copy; {{ cocktail.images[0].copyright }}
           </span>
@@ -65,8 +65,15 @@
       </v-col>
       
       <v-col cols="12">
-        <h4>JSON</h4>
-        <pre>{{cocktail}}</pre>
+        <v-expansion-panels>
+          <v-expansion-panel
+            title="JSON"
+          >
+            <v-expansion-panel-text>
+              <pre>{{cocktail}}</pre>
+            </v-expansion-panel-text>
+          </v-expansion-panel>
+        </v-expansion-panels>
       </v-col>
     </v-row>
   </v-sheet>
