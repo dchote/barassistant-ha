@@ -6,7 +6,7 @@
       v-model="showFullRecipe"
       fullscreen
     >
-      <v-card>
+      <v-card v-if="showFullRecipe">
         <v-card-title class="pa-3">
           <div 
             class="d-flex flex-row align-center"
@@ -33,7 +33,7 @@
           </div>
         </v-card-title>
         <v-card-text class="py-0">
-          <cocktail-recipe :cocktail="cocktail" />
+          <cocktail-recipe :cocktailSlug="cocktail.slug" />
         </v-card-text>
         <v-card-actions>
           <v-btn

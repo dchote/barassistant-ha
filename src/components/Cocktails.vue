@@ -48,6 +48,8 @@
     >
       <v-row class="ma-3">
         <v-progress-linear v-if="loading" indeterminate color="primary"></v-progress-linear>
+        <v-col v-else-if="cocktails.length == 0" cols="12" class="pa-10 text-disabled text-center">No cocktails found</v-col>
+        
         <cocktail v-for="item in cocktails" :key="item.id" :cocktail="item" />
       </v-row>
       
@@ -138,7 +140,7 @@
           console.log('ingredients result', result)
           this.ingredients = result.data.data
         }).catch((error) => {
-          console.log('ERROR', error)
+          console.log('ingredients ERROR', error)
         })
       },
       
@@ -149,17 +151,17 @@
           per_page: this.itemsPerPage, 
           page: this.page, 
           sort: '-average_rating,-created_at', 
-          include: 'ratings,ingredients.ingredient,tags,images',
+          include: 'ratings,ingredients.ingredient,tags,images,glass',
           filter: this.filter
         }
         
         this.$api.get('/cocktails', { params: queryParams }).then((result) => {
-          console.log('cocktail result', result)
+          console.log('cocktails result', result)
           this.cocktails = result.data.data
           this.lastPage = (result.data.meta.last_page) ? result.data.meta.last_page : 1
           this.loading = false
         }).catch((error) => {
-          console.log('ERROR', error)
+          console.log('cocktails ERROR', error)
           this.loading = false
         })
         

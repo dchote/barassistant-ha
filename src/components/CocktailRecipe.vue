@@ -1,6 +1,8 @@
 <template>
   <v-sheet>
-    <v-row>
+    <v-progress-linear v-if="loading" indeterminate color="primary"></v-progress-linear>
+    
+    <v-row v-if="cocktail">
       <v-col cols="6" md="4" class="d-none d-sm-block">
         <v-img
           v-if="cocktail.images && cocktail.images[0]"
@@ -55,16 +57,77 @@
         >
           <v-card-title>Ingredients</v-card-title>
           <v-card-text>
+            <v-row no-gutters align="center">
+              <v-col cols="6" md="4">
+                <v-text-field
+                  class="mx-2 my-3"
+                  style="min-width:120px;"
+                  :prepend-inner-icon="(width < 800) ? '' : 'mdi-cup'"
+                  v-model.number="servings"
+                  suffix="servings"
+                  type="number"
+                  hide-details
+                />
+              </v-col>
+              <v-col cols="6" md="4" align="center">
+                <v-btn-toggle
+                  class="mx-2 my-3"
+                  v-model="unit"
+                  color="primary"
+                  variant="tonal"
+                  rounded="xl"
+                  density="compact"
+                  mandatory
+                >
+                  <v-btn size="small" value="oz">oz</v-btn>
+                  <v-btn size="small" value="ml">ml</v-btn>
+                  <v-btn size="small" value="cl" class="d-none d-md-inline-block">cl</v-btn>
+                </v-btn-toggle>
+              </v-col>
+              <v-col v-if="cocktail.glass" cols="12" md="4">
+                <div class="mx-2 my-3 text-no-wrap"><strong>Glass Type:</strong> {{ cocktail.glass.name }}</div>
+              </v-col>
+            </v-row>
             
-            
-            
+            <v-list
+              class="mt-1"
+              variant="text"
+            >
+              <v-list-item
+                v-for="ingredient in cocktail.ingredients" :key="ingredient.sort"
+              >
+                <template v-slot:prepend>
+                  <v-icon v-if="ingredient.in_bar_shelf">mdi-bottle-tonic</v-icon>
+                  <v-icon v-else>mdi-bottle-tonic-outline</v-icon>
+                </template>
+                <v-list-item-title>{{ ingredientTitle(ingredient) }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
           </v-card-text>
         </v-card>
         
+        <v-card 
+          v-if="cocktail.instructions"
+          variant="flat"
+        >
+          <v-card-title>Instructions</v-card-title>
+          <v-card-text>
+            <pre class="text-body-1" style="text-wrap: wrap;" v-html="cocktail.instructions"></pre>
+          </v-card-text>
+        </v-card>
         
+        <v-card 
+          v-if="cocktail.garnish"
+          variant="flat"
+        >
+          <v-card-title>Garnish</v-card-title>
+          <v-card-text>
+            <pre class="text-body-1" style="text-wrap: wrap;"  v-html="cocktail.garnish"></pre>
+          </v-card-text>
+        </v-card>
       </v-col>
       
-      <v-col cols="12">
+      <v-col cols="12" v-if="debug">
         <v-expansion-panels>
           <v-expansion-panel
             title="JSON"
@@ -79,12 +142,24 @@
   </v-sheet>
 </template>
 
+<script setup>
+  import { useDisplay } from 'vuetify'
+  const { width } = useDisplay()
+</script>
+
 <script>
   export default {
-    props: ['cocktail'],
+    props: ['cocktailSlug'],
     
     data() {
       return {
+        debug: false,
+        
+        loading: true,
+        
+        cocktail: false,
+        
+        standardUnits: ['oz', 'ml', 'cl'],
         unit: 'oz',
         servings: 1
       }
@@ -93,5 +168,44 @@
     computed: {
       
     },
+    
+    mounted() {
+      this.loadCocktail()
+    },
+    
+    methods: {
+      loadCocktail() {
+        this.loading = true
+        
+        var queryParams = {}
+        
+        this.$api.get('/cocktails/' + this.cocktailSlug, { params: queryParams }).then((result) => {
+          console.log('cocktail result', result)
+          this.cocktail = result.data.data
+          this.loading = false
+        }).catch((error) => {
+          console.log('cocktail ERROR', error)
+          this.loading = false
+        })
+      },
+      
+      ingredientTitle(ingredient) {
+        if (this.standardUnits.includes(ingredient.units)) {
+          var amount = ingredient.formatted[this.unit].amount
+          var requiredAmount = (amount * this.servings)
+        
+          return requiredAmount + this.unit + ' ' + ingredient.ingredient.name
+        }
+        
+        // TODO im sure there is a better way to pluralize...
+        var title = this.servings + ' ' + ingredient.units
+        if (this.servings > 1) {
+          title += 's'
+        }
+        title += ' ' + ingredient.ingredient.name
+        
+        return title
+      }
+    }
   }
 </script>
