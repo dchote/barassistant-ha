@@ -16,7 +16,7 @@
             <v-spacer/>
             <v-rating
               v-if="cocktail.rating"
-              class="self-justify-end"
+              class="self-justify-end d-none d-sm-inline"
               readonly
               :length="5"
               :size="32"
