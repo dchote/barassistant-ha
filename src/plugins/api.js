@@ -2,12 +2,13 @@ import axios from 'axios'
 
 export default {
   install(app, options) {
-    var route = app.config.globalProperties.$route
+    var bar_id = new URL(window.location.toString()).searchParams.get('bar_id')
+    var collection_id = new URL(window.location.toString()).searchParams.get('collection_id')
     
     const API_URL = import.meta.env.VITE_API_URL
     const API_TOKEN = import.meta.env.VITE_API_TOKEN
-    const BAR_ID = route.query.bar_id || import.meta.env.VITE_BAR_ID
-    const COLLECTION_ID = route.query.collection_id || import.meta.env.VITE_COLLECTION_ID
+    const BAR_ID = bar_id || import.meta.env.VITE_BAR_ID
+    const COLLECTION_ID = collection_id || import.meta.env.VITE_COLLECTION_ID
     
     app.config.globalProperties.$config = { bar_id: BAR_ID, collection_id: COLLECTION_ID }
     
