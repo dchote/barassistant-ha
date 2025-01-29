@@ -12,7 +12,8 @@ Collect your Bar Assistant URL, generate a readonly API token, find the ID of yo
 docker build -t barassistant-ha:dev --build-arg API_URL=SITE_URL/bar/api --build-arg API_TOKEN=  --build-arg BAR_ID=1 --build-arg COLLECTION_ID=1 .
 ```
 
-You can combine barassistant-ha with your Bar Assistant `docker-compose.yml` and `nginx.conf` and have this bar specific readonly frontend come up within the same docker-compose stack.
+You can combine barassistant-ha with your Bar Assistant `docker-compose.yml` and `nginx.conf` and have this bar specific readonly frontend come up within the same docker-compose stack.  
+The new instance will be available at `SITE_URL/bar/ha/`.
 
 ### docker-compose.yml
 ```
@@ -28,7 +29,7 @@ You can combine barassistant-ha with your Bar Assistant `docker-compose.yml` and
 
 ### nginx.conf
 ```
-    location /ha {
+    location ^~ /bar/ha/ {
         proxy_pass http://barassistant-ha:8081/;
     }
 ```
