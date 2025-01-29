@@ -158,7 +158,7 @@
     
     data() {
       return {
-        debug: true,
+        debug: false,
         
         loading: true,
         
