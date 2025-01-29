@@ -70,7 +70,7 @@
                   <v-btn size="small" readonly><strong>{{ servings }}</strong></v-btn>
                   <v-btn size="small" icon="mdi-plus" @click="servings++"></v-btn>
                 </v-btn-group>
-                Serving{{ (servings > 1) ? 's' : '' }}
+                serving{{ (servings > 1) ? 's' : '' }}
               </v-col>
               <v-col cols="6" md="4" align="center">
                 <v-btn-toggle

@@ -32,7 +32,7 @@
             </v-btn>
           </div>
         </v-card-title>
-        <v-card-text class="py-0">
+        <v-card-text class="pa-0 px-3">
           <cocktail-recipe :cocktailSlug="cocktail.slug" />
         </v-card-text>
         <v-card-actions>
