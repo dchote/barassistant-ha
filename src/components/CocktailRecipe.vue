@@ -3,7 +3,7 @@
     <v-progress-linear v-if="loading" indeterminate color="primary"></v-progress-linear>
     
     <v-row v-if="cocktail">
-      <v-col cols="6" md="4" class="d-none d-sm-block">
+      <v-col cols="6" md="4" v-if="width > 900">
         <v-img
           v-if="cocktail.images && cocktail.images[0]"
           :src="cocktail.images[0].url"
@@ -58,16 +58,19 @@
           <v-card-title>Ingredients</v-card-title>
           <v-card-text>
             <v-row no-gutters align="center">
-              <v-col cols="6" md="4">
-                <v-text-field
+              <v-col cols="6" md="4" class="text-no-wrap">
+                <v-icon class="mr-2">mdi-cup</v-icon>
+                <v-btn-group
                   class="mx-2 my-3"
-                  style="min-width:120px;"
-                  :prepend-inner-icon="(width < 800) ? '' : 'mdi-cup'"
-                  v-model.number="servings"
-                  suffix="servings"
-                  type="number"
-                  hide-details
-                />
+                  variant="outlined"
+                  density="compact"
+                  divided
+                >
+                  <v-btn size="small" icon="mdi-minus" @click="servings--" :disabled="servings == 1"></v-btn>
+                  <v-btn size="small" readonly><strong>{{ servings }}</strong></v-btn>
+                  <v-btn size="small" icon="mdi-plus" @click="servings++"></v-btn>
+                </v-btn-group>
+                Serving{{ (servings > 1) ? 's' : '' }}
               </v-col>
               <v-col cols="6" md="4" align="center">
                 <v-btn-toggle
@@ -81,7 +84,7 @@
                 >
                   <v-btn size="small" value="oz">oz</v-btn>
                   <v-btn size="small" value="ml">ml</v-btn>
-                  <v-btn size="small" value="cl" class="d-none d-md-inline-block">cl</v-btn>
+                  <v-btn size="small" value="cl">cl</v-btn>
                 </v-btn-toggle>
               </v-col>
               <v-col v-if="cocktail.glass" cols="12" md="4">
