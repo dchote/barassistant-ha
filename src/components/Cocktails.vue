@@ -8,6 +8,7 @@
     >
       <v-toolbar>
         <v-icon class="mx-5 d-none d-sm-inline-block">mdi-glass-cocktail</v-icon>
+        
         <v-switch
           class="ml-3 ma-1 ma-sm-5"
           v-model="showCollection"
@@ -15,18 +16,19 @@
           color="primary"
           hide-details
         ></v-switch>
-        
+      
         <v-switch
           class="ma-1 ma-sm-5"
           v-model="selectLiquor"
-          label="Filter by Liquor"
+          :label="xs ? 'Liquor' : 'Filter by Liquor'"
           color="primary"
           hide-details
         ></v-switch>
         
         <v-select
           v-if="selectLiquor"
-          class="ma-2 ma-sm-5"
+          class="ma-1 ml-2 ma-sm-5"
+          :class="xs ? '' : ''"
           :items="ingredients"
           item-title="name"
           item-value="id"
@@ -54,6 +56,11 @@
   </div>
 </template>
 
+<script setup>
+  import { useDisplay } from 'vuetify'
+  const { xs, width } = useDisplay()
+</script>
+  
 <script>
   export default {
     
@@ -65,7 +72,7 @@
         lastPage: 1,
         itemsPerPage: 30,
         
-        collectionID: import.meta.env.VITE_COLLECTION_ID || 1,
+        collectionID: 1,
         showCollection: false,
         
         selectLiquor: false,
@@ -115,7 +122,7 @@
       }
     },
     
-    created() {
+    mounted() {
       this.loadIngredients()
       this.loadCocktails()
     },
