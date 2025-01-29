@@ -59,7 +59,7 @@
           <v-card-text>
             <v-row no-gutters align="center">
               <v-col cols="6" md="4" class="text-no-wrap">
-                <v-icon class="mr-2">mdi-cup</v-icon>
+                <v-icon class="mr-2 d-none d-sm-inline">mdi-cup</v-icon>
                 <v-btn-group
                   class="mx-2 my-3"
                   variant="outlined"
