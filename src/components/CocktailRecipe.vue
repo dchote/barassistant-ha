@@ -101,9 +101,10 @@
               >
                 <template v-slot:prepend>
                   <v-icon v-if="ingredient.in_bar_shelf">mdi-bottle-tonic</v-icon>
-                  <v-icon v-else>mdi-bottle-tonic-outline</v-icon>
+                  <v-icon v-else color="error">mdi-bottle-tonic-outline</v-icon>
                 </template>
                 <v-list-item-title>{{ ingredientTitle(ingredient) }}</v-list-item-title>
+                <v-list-item-subtitle v-if="!ingredient.in_bar_shelf" class="text-caption text-error">Missing ingredient.</v-list-item-subtitle>
               </v-list-item>
             </v-list>
           </v-card-text>
@@ -163,13 +164,19 @@
         cocktail: false,
         
         standardUnits: ['oz', 'ml', 'cl'],
-        unit: 'oz',
-        servings: 1
+        unit: localStorage.unit || 'oz',
+        servings: localStorage.servings || 1
       }
     },
     
-    computed: {
-      
+    watch: {
+      servings() {
+        localStorage.servings = this.servings
+      },
+       
+      unit() {
+        localStorage.unit = this.unit
+      }
     },
     
     mounted() {
