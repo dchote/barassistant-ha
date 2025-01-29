@@ -13,9 +13,7 @@
           >
             <v-icon class="mr-2">mdi-glass-cocktail</v-icon>
             {{ cocktail.name }}
-            
             <v-spacer/>
-            
             <v-rating
               v-if="cocktail.rating"
               class="self-justify-end"
@@ -27,7 +25,7 @@
             />
           </div>
         </v-card-title>
-        <v-card-text>
+        <v-card-text class="py-0">
           <cocktail-recipe :cocktail="cocktail" />
         </v-card-text>
         <v-card-actions>
