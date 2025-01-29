@@ -58,7 +58,7 @@
 
 <script setup>
   import { useDisplay } from 'vuetify'
-  const { xs, width } = useDisplay()
+  const { xs } = useDisplay()
 </script>
   
 <script>

@@ -13,11 +13,6 @@ import { createVuetify } from 'vuetify'
 
 // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 export default createVuetify({
-  defaults: {
-    VCard: {
-      elevation: 1
-    }
-  },
   theme: {
     defaultTheme: 'light',
     themes: {

@@ -6,20 +6,37 @@
       v-model="showFullRecipe"
       width="98%"
     >
-      <v-card
-        prepend-icon="mdi-glass-cocktail"
-        :title="cocktail.name"
-      >
-        <template v-slot:text>
+      <v-card>
+        <v-card-title class="pa-3">
+          <div 
+            class="d-flex flex-row"
+          >
+            <v-icon class="mr-2">mdi-glass-cocktail</v-icon>
+            {{ cocktail.name }}
+            
+            <v-spacer/>
+            
+            <v-rating
+              v-if="cocktail.rating"
+              class="self-justify-end"
+              readonly
+              :length="5"
+              :size="32"
+              :model-value="cocktail.rating.average"
+              active-color="primary"
+            />
+          </div>
+        </v-card-title>
+        <v-card-text>
           <cocktail-recipe :cocktail="cocktail" />
-        </template>
-        <template v-slot:actions>
+        </v-card-text>
+        <v-card-actions>
           <v-btn
             class="ms-auto"
             text="Done"
             @click="showFullRecipe = false"
           ></v-btn>
-        </template>
+        </v-card-actions>
       </v-card>
     </v-dialog>
     
