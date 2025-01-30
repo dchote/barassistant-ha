@@ -161,6 +161,7 @@
 
 <script>
   import { formatQuantity } from 'format-quantity'
+  import pluralize from 'pluralize'
   
   export default {
     props: ['cocktailSlug'],
@@ -227,12 +228,8 @@
         }
         
         // TODO im sure there is a better way to pluralize...
-        var title = this.servings + ' ' + ingredient.units
-        if (this.servings > 1 && title.slice(-2) !== 'sh') {
-          title += 'es'
-        } else if (this.servings > 1 && title.slice(-1) !== 's') {
-          title += 's'
-        }
+        var title = this.servings + ' '
+        title += pluralize(ingredient.units, this.servings)
         title += ' ' + ingredient.ingredient.name
         
         return title
