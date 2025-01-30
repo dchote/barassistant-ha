@@ -111,7 +111,7 @@
                   
                   <v-spacer /> 
                   
-                  <span v-if="servings > 1" class="text-caption text-lowercase text-primary">{{ ingredientTitle(ingredient, 1, false) }} per serving</span>
+                  <span v-if="servings > 1" class="text-caption text-lowercase text-primary">{{ ingredientTitle(ingredient, 1, false) }} each</span>
                 </v-list-item-title>
                 
                 <v-list-item-subtitle v-if="ingredient.note">{{ ingredient.note }}</v-list-item-subtitle>

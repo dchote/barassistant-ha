@@ -28,7 +28,7 @@
         <v-select
           v-if="selectLiquor"
           class="ma-1 ml-2 ma-sm-5"
-          :class="xs ? '' : ''"
+          :width="xs ? '40' : ''"
           :items="ingredients"
           item-title="name"
           item-value="id"
@@ -57,6 +57,13 @@
     </v-responsive>
   </div>
 </template>
+
+<style>
+  .v-selection-control .v-label {
+    white-space: nowrap !important;
+    word-break: normal !important;
+  }
+</style>
 
 <script setup>
   import { useDisplay } from 'vuetify'
