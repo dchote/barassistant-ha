@@ -101,11 +101,18 @@
               >
                 <template v-slot:prepend>
                   <v-icon v-if="ingredient.in_bar_shelf">mdi-bottle-tonic</v-icon>
+                  <v-icon v-else-if="ingredient.optional" color="disabled">mdi-bottle-tonic</v-icon>
+                  <v-icon v-else-if="ingredient.substitutes && substitutionsText(ingredient)" color="primary">mdi-bottle-tonic</v-icon>
                   <v-icon v-else color="error">mdi-bottle-tonic-outline</v-icon>
                 </template>
                 <v-list-item-title>{{ ingredientTitle(ingredient) }}</v-list-item-title>
-                <v-list-item-subtitle v-if="ingredient.optional" class="text-caption">Optional.</v-list-item-subtitle>
-                <v-list-item-subtitle v-else-if="!ingredient.in_bar_shelf" class="text-caption text-error">Missing ingredient.</v-list-item-subtitle>
+                <v-list-item-subtitle v-if="ingredient.optional || !ingredient.in_bar_shelf">
+                  <span v-if="!ingredient.in_bar_shelf && ingredient.optional">optional</span>
+                  <span v-else-if="!ingredient.in_bar_shelf && ingredient.substitutes && substitutionsText(ingredient)">
+                    use <strong>{{ substitutionsText(ingredient) }}</strong> instead
+                  </span>
+                  <span v-else-if="!ingredient.in_bar_shelf" class="text-error">missing ingredient</span>
+                </v-list-item-subtitle>
               </v-list-item>
             </v-list>
           </v-card-text>
@@ -153,6 +160,8 @@
 </script>
 
 <script>
+  import { formatQuantity } from 'format-quantity'
+  
   export default {
     props: ['cocktailSlug'],
     
@@ -168,6 +177,10 @@
         unit: localStorage.unit || 'oz',
         servings: localStorage.servings || 1
       }
+    },
+    
+    computed: {
+      
     },
     
     watch: {
@@ -203,9 +216,14 @@
       ingredientTitle(ingredient) {
         if (this.standardUnits.includes(ingredient.units)) {
           var amount = ingredient.formatted[this.unit].amount
-          var requiredAmount = (amount * this.servings)
-        
-          return requiredAmount + this.unit + ' ' + ingredient.ingredient.name
+          var requiredAmount = amount * this.servings
+          
+          if (this.unit == 'oz') {
+            // round to the nearest 1/4oz
+            requiredAmount = this.roundToNearestQuarter(requiredAmount)
+          }
+          
+          return formatQuantity(requiredAmount, { tolerance: 0.01, vulgarFractions: true }) + ' ' + this.unit + ' ' + ingredient.ingredient.name
         }
         
         // TODO im sure there is a better way to pluralize...
@@ -216,6 +234,23 @@
         title += ' ' + ingredient.ingredient.name
         
         return title
+      },
+      
+      substitutionsText(ingredient) {
+        var substitutions = false
+        
+        if (ingredient.substitutes) {
+          var availableSubstitutes = ingredient.substitutes.filter(item => item.in_bar_shelf == true).map(item => { return item.ingredient.name })
+          return availableSubstitutes.join(' or ')
+        }
+        
+        return substitutions
+      },
+      
+      
+      
+      roundToNearestQuarter(num) {
+        return Math.round(num * 4) / 4;
       }
     }
   }

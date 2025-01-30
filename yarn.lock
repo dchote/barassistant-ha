@@ -1364,6 +1364,11 @@ form-data@^4.0.0:
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
+format-quantity@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/format-quantity/-/format-quantity-3.0.0.tgz#51aec23a471a3c17469d609daa98e522a8ad90f2"
+  integrity sha512-rFMqM+RLYVMKDlw6ky3sfHmZnT8FudiPAPq9Hpylr6G3dZb7K42TTtcIKniFQrZZzEZgyT11ktEzJqr6E0uD2w==
+
 fsevents@~2.3.2, fsevents@~2.3.3:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.3.3.tgz#cac6407785d03675a2a5e1a5305c697b347d90d6"
