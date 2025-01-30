@@ -106,9 +106,15 @@
                   <v-icon v-else color="error">mdi-bottle-tonic-outline</v-icon>
                 </template>
                 
-                <v-list-item-title class="text-lowercase">{{ ingredientTitle(ingredient, servings) }}</v-list-item-title>
+                <v-list-item-title class="text-lowercase d-flex align-center">
+                  {{ ingredientTitle(ingredient, servings) }} 
+                  
+                  <v-spacer /> 
+                  
+                  <span v-if="servings > 1" class="text-caption text-lowercase text-primary">{{ ingredientTitle(ingredient, 1, false) }} per serving</span>
+                </v-list-item-title>
                 
-                <v-list-item-subtitle v-if="servings > 1" class="text-lowercase text-primary">{{ ingredientTitle(ingredient, 1) }} per serving</v-list-item-subtitle>
+                <v-list-item-subtitle v-if="ingredient.note">{{ ingredient.note }}</v-list-item-subtitle>
                 
                 <v-list-item-subtitle v-if="ingredient.optional || !ingredient.in_bar_shelf" class="text-lowercase">
                   <span v-if="!ingredient.in_bar_shelf && ingredient.optional">optional</span>
@@ -179,6 +185,8 @@
         cocktail: false,
         
         standardUnits: ['oz', 'ml', 'cl'],
+        conjoinedUnits: ['whole', 'half', 'quarter'],
+        
         unit: 'oz',
         servings: 1
       }
@@ -221,7 +229,9 @@
         })
       },
       
-      ingredientTitle(ingredient, servings) {
+      ingredientTitle(ingredient, servings, includeName = true) {
+        var title = ''
+        
         if (this.standardUnits.includes(ingredient.units)) {
           var amount = ingredient.formatted[this.unit].amount
           var requiredAmount = amount * servings
@@ -231,18 +241,25 @@
             requiredAmount = this.roundToNearestQuarter(requiredAmount)
           }
           
-          return formatQuantity(requiredAmount, { tolerance: 0.01, vulgarFractions: true }) + ' ' + this.unit + ' ' + ingredient.ingredient.name
+          title += formatQuantity(requiredAmount, { tolerance: 0.01, vulgarFractions: true }) + ' ' + this.unit + ' '
+          
+          if (includeName) {
+            title += ingredient.ingredient.name
+          }
+          
+          return title
         }
         
-        var title = servings + ' '
-        
-        if (ingredient.units != 'whole') {
-          title += pluralize(ingredient.units, servings)
+        // attempt to pluralize sensibly
+        if (this.conjoinedUnits.includes(ingredient.units)) {
+          title += servings + ' ' + pluralize(ingredient.units + ' ' + ingredient.ingredient.name, servings)
         } else {
-          title += ingredient.units
+          title += servings + ' ' + pluralize(ingredient.units, servings)
+          
+          if (includeName) {
+            title += ' ' + ingredient.ingredient.name
+          }
         }
-        
-        title += ' ' + ingredient.ingredient.name
         
         return title
       },
