@@ -105,8 +105,12 @@
                   <v-icon v-else-if="ingredient.substitutes && substitutionsText(ingredient)" color="primary">mdi-bottle-tonic</v-icon>
                   <v-icon v-else color="error">mdi-bottle-tonic-outline</v-icon>
                 </template>
-                <v-list-item-title>{{ ingredientTitle(ingredient) }}</v-list-item-title>
-                <v-list-item-subtitle v-if="ingredient.optional || !ingredient.in_bar_shelf">
+                
+                <v-list-item-title class="text-lowercase">{{ ingredientTitle(ingredient, servings) }}</v-list-item-title>
+                
+                <v-list-item-subtitle v-if="servings > 1" class="text-lowercase text-primary">{{ ingredientTitle(ingredient, 1) }} per serving</v-list-item-subtitle>
+                
+                <v-list-item-subtitle v-if="ingredient.optional || !ingredient.in_bar_shelf" class="text-lowercase">
                   <span v-if="!ingredient.in_bar_shelf && ingredient.optional">optional</span>
                   <span v-else-if="!ingredient.in_bar_shelf && ingredient.substitutes && substitutionsText(ingredient)">
                     use <strong>{{ substitutionsText(ingredient) }}</strong> instead
@@ -175,8 +179,8 @@
         cocktail: false,
         
         standardUnits: ['oz', 'ml', 'cl'],
-        unit: localStorage.unit || 'oz',
-        servings: localStorage.servings || 1
+        unit: 'oz',
+        servings: 1
       }
     },
     
@@ -195,6 +199,9 @@
     },
     
     mounted() {
+      this.unit = (localStorage.unit) ? localStorage.unit : 'oz'
+      this.servings = (localStorage.servings) ? parseInt(localStorage.servings) : 1
+      
       this.loadCocktail()
     },
     
@@ -214,10 +221,10 @@
         })
       },
       
-      ingredientTitle(ingredient) {
+      ingredientTitle(ingredient, servings) {
         if (this.standardUnits.includes(ingredient.units)) {
           var amount = ingredient.formatted[this.unit].amount
-          var requiredAmount = amount * this.servings
+          var requiredAmount = amount * servings
           
           if (this.unit == 'oz') {
             // round to the nearest 1/4oz
@@ -227,9 +234,14 @@
           return formatQuantity(requiredAmount, { tolerance: 0.01, vulgarFractions: true }) + ' ' + this.unit + ' ' + ingredient.ingredient.name
         }
         
-        // TODO im sure there is a better way to pluralize...
-        var title = this.servings + ' '
-        title += pluralize(ingredient.units, this.servings)
+        var title = servings + ' '
+        
+        if (ingredient.units != 'whole') {
+          title += pluralize(ingredient.units, servings)
+        } else {
+          title += ingredient.units
+        }
+        
         title += ' ' + ingredient.ingredient.name
         
         return title
