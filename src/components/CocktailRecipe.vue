@@ -228,7 +228,9 @@
         
         // TODO im sure there is a better way to pluralize...
         var title = this.servings + ' ' + ingredient.units
-        if (this.servings > 1 && title.slice(-1) !== 's') {
+        if (this.servings > 1 && title.slice(-2) !== 'sh') {
+          title += 'es'
+        } else if (this.servings > 1 && title.slice(-1) !== 's') {
           title += 's'
         }
         title += ' ' + ingredient.ingredient.name
