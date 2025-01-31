@@ -98,15 +98,18 @@
             >
               <v-list-item
                 v-for="ingredient in cocktail.ingredients" :key="ingredient.sort"
+                class="pl-0"
               >
                 <template v-slot:prepend>
-                  <v-icon v-if="ingredient.in_bar_shelf">mdi-bottle-tonic</v-icon>
-                  <v-icon v-else-if="ingredient.optional" color="disabled">mdi-bottle-tonic</v-icon>
-                  <v-icon v-else-if="ingredient.substitutes && substitutionsText(ingredient)" color="primary">mdi-bottle-tonic</v-icon>
-                  <v-icon v-else color="error">mdi-bottle-tonic-outline</v-icon>
+
                 </template>
                 
                 <v-list-item-title class="text-lowercase d-flex align-center">
+                  <v-icon class="mr-2 mb-1" v-if="ingredient.in_bar_shelf">mdi-bottle-tonic</v-icon>
+                  <v-icon class="mr-2 mb-1" v-else-if="ingredient.optional" color="disabled">mdi-bottle-tonic</v-icon>
+                  <v-icon class="mr-2 mb-1" v-else-if="ingredient.substitutes && substitutionsText(ingredient)" color="primary">mdi-bottle-tonic</v-icon>
+                  <v-icon class="mr-2 mb-1" v-else color="error">mdi-bottle-tonic-outline</v-icon>
+                  
                   {{ ingredientTitle(ingredient, servings) }} 
                   
                   <v-spacer /> 
