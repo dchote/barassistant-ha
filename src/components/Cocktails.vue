@@ -128,6 +128,12 @@
       
       page() {
         this.loadCocktails()
+        
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth'
+        })
       }
     },
     
@@ -140,7 +146,7 @@
       loadIngredients() {
         var queryParams = {
           per_page: 200, 
-          filter: {main_ingredients: true, bar_shelf: true, strength_min: 30}
+          filter: {main_ingredients: true, bar_shelf: true, strength_min: 20}
         }
         
         this.$api.get('/ingredients', { params: queryParams }).then((result) => {
