@@ -51,11 +51,12 @@
       <v-img
         v-if="cocktail.images && cocktail.images[0]"
         class="text-white"
-        height="160"
+        height="100"
         :src="cocktail.images[0].url"
+        gradient="to bottom, rgba(100,100,100,0.1), rgba(0,0,0,0.7)"
         cover
       >
-        <v-row style="height: 160px;" no-gutters>
+        <v-row style="height: 100px;" no-gutters>
           <div 
             class="d-flex flex-row justify-end ma-1"
             style="width: 100%"
@@ -114,6 +115,12 @@
     </v-card>
   </div>
 </template>
+
+<style>
+  .v-img__img {
+    object-position: center 30%;
+  }
+</style>
 
 <script setup>
   import { useDisplay } from 'vuetify'

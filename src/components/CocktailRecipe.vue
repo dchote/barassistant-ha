@@ -9,7 +9,7 @@
           :src="cocktail.images[0].url"
           width="100%"
           height="500"
-          rounded
+          rounded="lg"
           cover
         >
           <span 
