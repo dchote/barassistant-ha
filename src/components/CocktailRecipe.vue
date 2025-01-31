@@ -101,23 +101,19 @@
                 class="pl-0"
               >
                 <template v-slot:prepend>
-
+                  <v-icon class="mb-1" v-if="ingredient.in_bar_shelf">mdi-bottle-tonic</v-icon>
+                  <v-icon class="mb-1" v-else-if="ingredient.optional" color="disabled">mdi-bottle-tonic</v-icon>
+                  <v-icon class="mb-1" v-else-if="ingredient.substitutes && substitutionsText(ingredient)" color="primary">mdi-bottle-tonic</v-icon>
+                  <v-icon class="mb-1" v-else color="error">mdi-bottle-tonic-outline</v-icon>
                 </template>
                 
-                <v-list-item-title class="text-lowercase d-flex align-center">
-                  <v-icon class="mr-2 mb-1" v-if="ingredient.in_bar_shelf">mdi-bottle-tonic</v-icon>
-                  <v-icon class="mr-2 mb-1" v-else-if="ingredient.optional" color="disabled">mdi-bottle-tonic</v-icon>
-                  <v-icon class="mr-2 mb-1" v-else-if="ingredient.substitutes && substitutionsText(ingredient)" color="primary">mdi-bottle-tonic</v-icon>
-                  <v-icon class="mr-2 mb-1" v-else color="error">mdi-bottle-tonic-outline</v-icon>
-                  
+                <v-list-item-title class="d-flex align-center text-lowercase">
                   {{ ingredientTitle(ingredient, servings) }} 
                   
                   <v-spacer /> 
                   
-                  <span v-if="servings > 1" class="text-caption text-lowercase text-primary">{{ ingredientTitle(ingredient, 1, false) }} each</span>
+                  <span v-if="servings > 1" class="text-caption text-primary">{{ ingredientTitle(ingredient, 1, false) }} each</span>
                 </v-list-item-title>
-                
-                <v-list-item-subtitle v-if="ingredient.note">{{ ingredient.note }}</v-list-item-subtitle>
                 
                 <v-list-item-subtitle v-if="ingredient.optional || !ingredient.in_bar_shelf" class="text-lowercase">
                   <span v-if="!ingredient.in_bar_shelf && ingredient.optional">optional</span>
@@ -126,6 +122,8 @@
                   </span>
                   <span v-else-if="!ingredient.in_bar_shelf" class="text-error">missing ingredient</span>
                 </v-list-item-subtitle>
+                
+                <v-list-item-subtitle v-if="ingredient.note" class="text-lowercase text-primary">{{ ingredient.note }}</v-list-item-subtitle>
               </v-list-item>
             </v-list>
           </v-card-text>
@@ -166,6 +164,13 @@
     </v-row>
   </v-sheet>
 </template>
+
+<style>
+  .v-list-item__prepend {
+    display: block !important;
+  }
+</style>
+
 
 <script setup>
   import { useDisplay } from 'vuetify'
